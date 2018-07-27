@@ -10,7 +10,11 @@ export default class PokemonListItem extends Component{
     }
 
     setFavorite(){
-        console.log(`Has guardado a ${this.props.pokemon.name}`)
+        axios.post('localhost:8080/pokemons', {"url": "url4", "name": this.props.pokemon.name}).then(
+            res => {
+                console.log('you has been set this pokemon as favorite!');
+            }
+        )
     }
 
     render(){

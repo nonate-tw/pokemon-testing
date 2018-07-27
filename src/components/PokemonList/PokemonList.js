@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PokemonListItem from '../PokemonListItem/PokemonListItem'
 import axios from 'axios';
 
+
 const URL= 'https://pokeapi.co/api/v2/type/';
 
 export default class PokemonList extends Component{
@@ -13,9 +14,7 @@ export default class PokemonList extends Component{
     }
 
     getPokemonByType(typeId) {
-        console.log('holi')
-        axios.get(`${URL}${typeId}`).then(res => {
-            console.log(res.data)
+        return axios.get(`${URL}${typeId}`).then(res => {
             this.setState({pokemonList: res.data.pokemon});
 
             this.setState({items: this.state.pokemonList.map((item) => {
@@ -27,9 +26,9 @@ export default class PokemonList extends Component{
     }
 
     render(){ 
-        console.log(this.state.items);
-        if (this.props.selectedTypeId != null && this.state.pokemonList.length === 0)
+        if (this.props.selectedTypeId != null && this.state.pokemonList.length === 0){
             this.getPokemonByType(this.props.selectedTypeId.id);
+        }
         
         return (
             <div>

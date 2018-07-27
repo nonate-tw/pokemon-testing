@@ -3,8 +3,8 @@ import Type from  '../Type/Type';
 import axios from 'axios';
 
 
-//const URL= 'http://localhost:8080/pokemon/types';
-const URL= 'https://pokeapi.co/api/v2/pokemon/18/';
+const URL= 'http://localhost:8080/pokemon/types';
+//const URL= 'https://pokeapi.co/api/v2/pokemon/18/';
 
 export default class TypeList extends Component {
 

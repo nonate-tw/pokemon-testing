@@ -1,18 +1,20 @@
 import {shallow} from 'enzyme'
 import React from 'react'
-import sinon from 'sinon'
+import axios from 'axios'
+import MockAdapter from 'axios-mock-adapter'
 import PokemonList from '../../../src/components/PokemonList/PokemonList'
-import PokemonListItem from '../../../src/components/PokemonListItem/PokemonListItem'
 
-test('should render PokemonListItem', async () => {
+test('should call getPokemonByType method', async() => {
+    var mock = new MockAdapter(axios);
+    //const data = {data: {pokemon: [{pokemon: {name: 'charmander'}}]}}
+    const data = {name: 'fire'}
 
-    let stub = await sinon.stub(PokemonList.prototype, 'getPokemonByType').returns([
-        <PokemonListItem key='123' pokemon={{pokemon: {name:'missingno'}}}/>
-    ]);
-    
+    mock.onGet('https://pokeapi.co/api/v2/type/10').reply(200, data);
+
     const wrapper = shallow(<PokemonList/>)
-    console.log(wrapper.html())
-    expect(wrapper.find('PokemonListItem')).toHaveLength(1);
 
-    stub.restore();
-})
+    wrapper.instance().getPokemonByType(10).then(response => {
+        expect(response).toContain(data);
+        done();
+    });
+});
